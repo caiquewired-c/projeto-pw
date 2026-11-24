@@ -1,0 +1,13 @@
+<%- include('partials/header') %>
+<div class="box-form">
+  <h2>Criar Conta</h2>
+  <% if (erro) { %><p class="erro"><%= erro %></p><% } %>
+  <form action="/cadastro" method="POST">
+    <label>Nome:</label><input type="text" name="nome" required>
+    <label>Email:</label><input type="email" name="email" required>
+    <label>Senha:</label><input type="password" name="senha" required>
+    <button type="submit">Cadastrar</button>
+  </form>
+  <p class="aux">Ja tem conta? <a href="/login">Fazer login</a></p>
+</div>
+<%- include('partials/footer') %>

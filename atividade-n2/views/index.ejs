@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+<h2>Topicos de Debate</h2>
+<form action="/" method="GET" class="barra-busca">
+  <input type="text" name="busca" placeholder="Pesquisar topico..." value="<%= busca %>">
+  <select name="categoria">
+    <option value="Todas" <%= categoria === 'Todas' ? 'selected' : '' %>>Todas</option>
+    <option value="Tecnologia" <%= categoria === 'Tecnologia' ? 'selected' : '' %>>Tecnologia</option>
+    <option value="Faculdade" <%= categoria === 'Faculdade' ? 'selected' : '' %>>Faculdade</option>
+    <option value="Geral" <%= categoria === 'Geral' ? 'selected' : '' %>>Geral</option>
+  </select>
+  <button type="submit">Filtrar</button>
+</form>
+<% if (topicos.length === 0) { %>
+  <p>Nenhum topico encontrado.</p>
+<% } else { %>
+  <% topicos.forEach(t => { %>
+    <div class="card">
+      <div class="card-info">
+        <span class="badge"><%= t.categoria %></span>
+        <small>Por <strong><%= t.autorNome %></strong> em <%= t.data %></small>
+      </div>
+      <h3><a href="/topicos/<%= t._id %>"><%= t.titulo %></a></h3>
+      <p><%= t.conteudo %></p>
+      <div class="card-links">
+        <a href="/topicos/<%= t._id %>">Ver respostas (<%= t.comentarios ? t.comentarios.length : 0 %>)</a>
+        <% if (usuario && usuario.id === t.autorId) { %>
+          <a href="/topicos/<%= t._id %>/editar">Editar</a>
+          <form action="/topicos/<%= t._id %>/excluir" method="POST" style="display:inline;">
+            <button type="submit" class="btn-link-perigo" onclick="return confirm('Apagar topico?')">Excluir</button>
+          </form>
+        <% } %>
+      </div>
+    </div>
+  <% }) %>
+<% } %>
+<%- include('partials/footer') %>

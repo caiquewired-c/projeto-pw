@@ -1,0 +1,17 @@
+<%- include('partials/header') %>
+<div class="box-form">
+  <h2><%= topico ? 'Editar Topico' : 'Novo Topico' %></h2>
+  <% if (erro) { %><p class="erro"><%= erro %></p><% } %>
+  <form action="<%= topico ? '/topicos/' + topico._id + '/editar' : '/topicos/novo' %>" method="POST">
+    <label>Titulo:</label><input type="text" name="titulo" value="<%= topico ? topico.titulo : '' %>" required>
+    <label>Categoria:</label>
+    <select name="categoria">
+      <option value="Tecnologia" <%= topico && topico.categoria === 'Tecnologia' ? 'selected' : '' %>>Tecnologia</option>
+      <option value="Faculdade" <%= topico && topico.categoria === 'Faculdade' ? 'selected' : '' %>>Faculdade</option>
+      <option value="Geral" <%= topico && topico.categoria === 'Geral' ? 'selected' : '' %>>Geral</option>
+    </select>
+    <label>Conteudo:</label><textarea name="conteudo" rows="5" required><%= topico ? topico.conteudo : '' %></textarea>
+    <button type="submit"><%= topico ? 'Salvar Alteracoes' : 'Publicar Topico' %></button>
+  </form>
+</div>
+<%- include('partials/footer') %>

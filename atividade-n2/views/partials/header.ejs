@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forum de Debates - PW</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="topo-inner">
+      <a href="/" class="logo">Forum de Debates</a>
+      <nav>
+        <a href="/">Inicio</a>
+        <% if (usuario) { %>
+          <a href="/topicos/novo">Novo Topico</a>
+          <span class="user-tag">Ola, <%= usuario.nome %></span>
+          <a href="/logout" class="sair">Sair</a>
+        <% } else { %>
+          <a href="/login">Entrar</a>
+          <a href="/cadastro">Cadastrar</a>
+        <% } %>
+      </nav>
+    </div>
+  </header>
+  <main class="container">

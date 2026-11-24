@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+<a href="/">&larr; Voltar</a>
+<div class="card" style="margin-top: 12px;">
+  <div class="card-info">
+    <span class="badge"><%= topico.categoria %></span>
+    <small>Por <strong><%= topico.autorNome %></strong> em <%= topico.data %></small>
+  </div>
+  <h2><%= topico.titulo %></h2>
+  <p><%= topico.conteudo %></p>
+</div>
+<h3>Comentarios (<%= topico.comentarios ? topico.comentarios.length : 0 %>)</h3>
+<% if (!topico.comentarios || topico.comentarios.length === 0) { %>
+  <p>Ninguem comentou ainda.</p>
+<% } else { %>
+  <% topico.comentarios.forEach(c => { %>
+    <div class="comentario"><strong><%= c.autor %></strong> <small>(<%= c.data %>)</small><p><%= c.texto %></p></div>
+  <% }) %>
+<% } %>
+<% if (usuario) { %>
+  <form action="/topicos/<%= topico._id %>/comentar" method="POST" class="form-comentar">
+    <textarea name="texto" rows="3" placeholder="Escreva sua resposta..." required></textarea>
+    <button type="submit">Responder</button>
+  </form>
+<% } else { %>
+  <p class="aux"><a href="/login">Entre na sua conta</a> para comentar.</p>
+<% } %>
+<%- include('partials/footer') %>
